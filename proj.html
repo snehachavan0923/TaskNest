@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f6fb">
+  <title>Student Task Manager</title>
+  <link rel="stylesheet" href="proj.css">
+  <script src="proj.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✓</div>
+        <div>
+          <p class="eyebrow">STAY ORGANIZED</p>
+          <h1>Student Task Manager</h1>
+        </div>
+      </div>
+      <button id="themeToggle" class="icon-button" type="button" aria-label="Switch theme" title="Switch theme">☾ <span>Dark mode</span></button>
+    </header>
+
+    <section class="welcome-row">
+      <div>
+        <p class="eyebrow">YOUR STUDY SPACE</p>
+        <h2>Make today count<span class="accent">.</span></h2>
+        <p class="muted">One task at a time. You've got this.</p>
+      </div>
+      <div class="date-pill" id="todayLabel">Today</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Task statistics">
+      <article class="stat-card"><span class="stat-icon blue">▤</span><div><p>Total tasks</p><strong id="totalCount">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon amber">◷</span><div><p>Pending</p><strong id="pendingCount">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon green">✓</span><div><p>Completed</p><strong id="completedCount">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon red">!</span><div><p>Overdue</p><strong id="overdueCount">0</strong></div></article>
+    </section>
+
+    <section class="progress-card">
+      <div class="progress-heading"><div><h3>Your progress</h3><p class="muted" id="motivation">Start with one small task.</p></div><strong id="progressText">0%</strong></div>
+      <div class="progress-track" role="progressbar" aria-label="Task completion progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div>
+    </section>
+
+    <section class="workspace">
+      <section class="panel form-panel">
+        <div class="section-heading"><div><p class="eyebrow">PLAN IT OUT</p><h3 id="formHeading">Add a new task</h3></div><span class="heading-icon">＋</span></div>
+        <form id="taskForm">
+          <label for="taskTitle">Task title <span class="required">*</span></label>
+          <input id="taskTitle" name="title" type="text" maxlength="100" placeholder="e.g. Revise data structures" required>
+          <label for="taskDescription">Description <span class="optional">(optional)</span></label>
+          <textarea id="taskDescription" name="description" rows="3" maxlength="300" placeholder="Add a few details..."></textarea>
+          <div class="field-row">
+            <div class="field-group"><label for="taskCategory">Category</label><select id="taskCategory"><option>Study</option><option>Assignment</option><option>Exam</option><option>Project</option><option>Personal</option></select></div>
+            <div class="field-group"><label for="taskPriority">Priority</label><select id="taskPriority"><option value="Medium">Medium</option><option value="High">High</option><option value="Low">Low</option></select></div>
+          </div>
+          <label for="taskDueDate">Due date <span class="optional">(optional)</span></label>
+          <input id="taskDueDate" type="date">
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+          <div class="form-actions"><button id="submitTask" class="primary-button" type="submit">＋ Add task</button><button id="cancelEdit" class="secondary-button hidden" type="button">Cancel</button></div>
+        </form>
+      </section>
+
+      <section class="panel tasks-panel">
+        <div class="section-heading tasks-title-row"><div><p class="eyebrow">YOUR TO-DO LIST</p><h3>Tasks <span class="task-count" id="visibleCount">0</span></h3></div><button id="clearCompleted" class="text-button" type="button">Clear completed</button></div>
+        <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search your tasks..." aria-label="Search tasks"><button id="clearSearch" class="clear-search hidden" type="button" aria-label="Clear search">×</button></div>
+        <div class="filter-row" role="group" aria-label="Filter tasks">
+          <button class="filter-button active" type="button" data-filter="All">All <span id="allFilterCount">0</span></button>
+          <button class="filter-button" type="button" data-filter="Pending">Pending <span id="pendingFilterCount">0</span></button>
+          <button class="filter-button" type="button" data-filter="Completed">Completed <span id="completedFilterCount">0</span></button>
+        </div>
+        <div class="sort-row"><label for="sortTasks">Sort by</label><select id="sortTasks"><option value="newest">Newest first</option><option value="dueDate">Due date</option><option value="priority">Priority</option><option value="title">Title A–Z</option></select><label for="priorityFilter" class="sr-only">Filter by priority</label><select id="priorityFilter"><option value="All">All priorities</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option></select></div>
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state"><div class="empty-illustration">✦</div><h4>No tasks here yet</h4><p class="muted">Add a task or try changing your search or filters.</p></div>
+      </section>
+    </section>
+    <footer><span>Made for focused students</span><span>Small steps lead to big progress ✦</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
